@@ -13,3 +13,23 @@ export const countryFetcher = () =>{
 }
 
 
+export const countrySelector = (data) =>{
+    return (dispatch, getState) =>{
+        let state = getState()
+        if(data.target.checked){
+
+            dispatch({
+                type:'SELECTOR',
+                data:[...state.selectedCountry,data.target.name]
+            })
+        }else{
+          let tempArray = [...state.selectedCountry]
+          let index = tempArray.findIndex((item)=> item === data.target.name)
+          tempArray.splice(index,1)
+          dispatch({
+            type:'SELECTOR',
+            data:tempArray
+          }) 
+        }
+    }
+}
